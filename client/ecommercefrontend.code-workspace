@@ -1,0 +1,44 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.lineHeight": 1.6,
+    "zenMode.hideLineNumbers": false,
+    "zenMode.hideTabs": false,
+    "editor.fontSize": 20,
+    "editor.detectIndentation": false,
+    "editor.minimap.enabled": true,
+    "editor.tabSize": 2,
+    "workbench.editor.showTabs": true,
+    "workbench.editor.languageDetection": true,
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.fontFamily": "Inconsolata",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorBlinking": true,
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "editor.glyphMargin": false,
+    "editor.fontLigatures": true,
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "[html]": {
+      "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "editor.fontFamily": "'Consolas', 'Fredoka Light', consolas, 'SF Pro Text Light', consolas, monospace",
+    "editor.wordWrap": "wordWrapColumn",
+    // code snap settings
+    "codesnap.containerPadding": "3em",
+    "codesnap.backgroundColor": "#00FFFF",
+    "codesnap.roundedCorners": true,
+    "codesnap.showWindowTitle": false,
+    "codesnap.target": "window",
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.wordWrapColumn": 110
+  }
+}

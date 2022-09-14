@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better with Python</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <style>
+        code {
+            color: crimson;
+            font-size: 18px;
+        }
+
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Python</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Django</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">REST Framework</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section>
+        <div class="container">
+            <h1>Premissions in Django REST FRAMEWORK</h1>
+            <p>
+                Permissions are set to limit the authority of any random user to
+                alter the behaviour of the data stored in database.
+                While working with the api we specially need to think of the security
+                of our end points and the authentications related to it.
+
+                in rest_framework with django we can set theses permissions in
+                {project-root-dir}/settings.py
+            </p>
+
+            <div class="container">
+                <code class="python-code">
+<pre>
+REST_FRAMEWORK = {
+'DEFAULT_PERMISSION_CLASSES': [
+'rest_framework.permissions.AllowAny'
+],
+}
+</pre>
+                </code>
+            </div>
+            <p>
+                REST_FRAMEWORK is a dictionary that holds the key as permission classes,
+                and the values can be mulitple so it is a python list. Note that the values
+                and the key itself is str object of python which we call string in other languages.
+                By default the value is set to AllowAny class which is the part of
+                rest_framework.permissions module or file.
+            </p>
+            <p>
+                There are multiple
+                places we could do this—project-level, view-level, or object-level
+            </p>
+
+            <!-- new topic -->
+
+            <div id="view-level-permissions">
+                <h2>View-level Permissions</h2>
+                <code class="python-code">
+<pre>
+from rest_framework import premissions
+
+permission_classes = (permissions.IsAuthenticated,)
+# permission_classes is class attribute(should be exaclty named) and is assigned a list of Premissions
+# from permission module of rest_framework.permissions module.
+# this will require the user to authenticate itself to access the resource at this end point
+</pre>
+                </code>
+            </div>
+
+            <!-- new topic -->
+
+            <div id="project-level-permissions">
+                <h2>Project-Level Permissions</h2>
+                <p>This is required to apply project level permissions. it helps to reduce the redundancy
+                    over applying the permssions to every view.
+                </p>
+                <p>
+                <ol>
+                    <li><strong>AllowAny</strong>- any user, authenticated or not, has full access</li>
+                    <li><strong>IsAuthenticated</strong> - only authenticated, registered users have access</li>
+                    <li><strong>IsAdminUser</strong> - only admins/superusers have access</li>
+                    <li> <strong>IsAuthenticatedOrReadOnly</strong> - unauthorized users can view any page, but only
+                        authenticated users have write, edit, or delete privileges
+                    </li>
+                </ol>
+                </p>
+                <code class="python-code">
+<pre>
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.(AllowAny/ IsAuthenticated/ IsAdminUser/ IsAuthenticatedOrReadOnly)'
+    ],
+}
+</pre>
+                </code>
+            </div>
+
+            <!-- new topic -->
+
+            <div id="custom-permissions">
+                <h2>Custom permissions</h2>
+                <p>Internally, Django REST Framework relies on a <strong>BasePermission</strong> class from which all
+                    other permission classes inherit. That means the built-in permissions settings like
+                    AllowAny , IsAuthenticated , and others extend it.</p>
+                <p>
+                    Since all the pre-defined permission classes override the <strong>BasePermission</strong> class,
+                    hence
+                    to create custom permission class, we will inherit this <strong>BasePermission</strong>. Next, we
+                    will
+                    override the has_object_permission
+                    method. To
+                    create our own custom permission, we will override the has_object_permission
+                    method.
+                </p>
+                <code class="python-code">
+<pre>
+class IsAuthorOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+
+        # Read-only permissions are allowed for any request
+        if request.method in permissions.SAFE_METHODS:
+        return True
+
+        # Write permissions are only allowed to the author of a post
+        return obj.author == request.user
+</pre>
+                </code>
+                <p>
+                    A request contains HTTP verbs included in SAFE_METHODS(a tuple containing GET, OPTIONS, HEAD),
+                    then it is a read-only request and permission is granted. <strong>Finally</strong>, after creating
+                    this file we also need to use this, we apply this permission in the view level. Including this class
+                    in the views.py of your app-name in django.
+                </p>
+                <code class="python-code">
+<pre>
+from permissions import YourPermissionClass
+
+permission_classes = (YourPermissionClass,)
+</pre>
+                </code>
+            </div>
+
+            <!-- new topic -->
+
+
+        </div>
+        <hr>
+        <div class="container" id="authentication-rest-framework">
+            <h1>Authentication in Django REST FRAMEWORK</h1>
+            <p>
+                <strong>Authentication</strong> is a proof of the user/ machine. It is usually done by sending
+                some credentials that are private to the sender and after that the receiver verifies it with the
+                stored key, value pairs. In terms of API, we can say that the authentication is important in order to
+                update/
+                register the resources.
+            </p>
+            <p>
+                <strong>HTTP</strong> is a <strong>stateless</strong> protocol, which means that it does not maintains
+                the state of each request. Every single request is new to it. So in order to retreive restricted
+                resources
+                every request have to be verfied by some means. Authentication over every request will delay the process
+                and
+                increases the overhead on the server.
+            </p>
+            <p>
+                One solution to uniquely identify each user over the request, response cycle, is by passing a
+                <strong>unique
+                    identifier</strong> with each HTTP request. Django REST Framework ships with four different built-in
+                authentication options.
+
+                <strong>JSON Web Tokens (JWTs)</strong> . These are another way that we can verfiy with the help of
+                tokens.
+                They are implemented using the third party packages.
+            </p>
+
+            <!-- new topic -->
+            <div class="container">
+                <h2>1. Basic Authentication</h2>
+                <p>
+                <pre>
+                        Client                                                 Server
+                        ------                                                  ------
+            
+    --------------------------------------->
+    GET / HTTP/1.1                                             
+                                                            <-------------------------
+                                                            HTTP/1.1 401 Unauthorized
+                                                            WWW-Authenticate: Basic
+    --------------------------------------->
+    GET / HTTP/1.1
+    Authorization: Basic <strong>d3N2OnBhc3N3b3JkMTIz</strong> 
+                                                            <-------------------------
+                                                            HTTP/1.1 200 OK
+                    </pre>
+                </p>
+                <p>
+                    <strong>d3N2OnBhc3N3b3JkMTIz</strong> is the base64 encoding for wsv:password123.
+                    User credentials are sent over by the template as &lt;username&gt;:&lt;password&gt;.
+                    The credentials are unencrypted. The primary advantage of this approach is its simplicity.
+                    But there are several major downsides. First, on every single request the server must look up
+                    and verify the username and password, which is inefficient.
+                </p>
+                <p> It would be better to do the look up
+                    once and then pass a token of some kind that says, this user is approved. Second,
+                    user credentials are being passed in clear text—not encrypted at all—over the internet.
+                    This is incredibly insecure. Any internet traffic that is not encrypted can easily be
+                    captured and reused. Thus basic authentication should only be used via HTTPS, the
+                    secure version of HTTP .
+                </p>
+            </div>
+
+
+            <!-- new topic -->
+            <div class="container">
+                <h2>2. Session Authentication</h2>
+                <p>
+                    It is is a combination of <strong>sessions</strong> and <strong>cookies</strong>.
+                    At a high level, the client
+                    authenticates with its credentials (username/password) and then receives a session
+                    ID from the server which is stored as a cookie. This session ID is then passed in the
+                    header of every future HTTP request.
+                </p>
+                <p> When the session ID is passed, the server uses it to look up a session object containing
+                    all available information for a given user, including credentials.
+                </p>
+                <p>This approach is <strong>stateful</strong> because a record must be kept and maintained on both the
+                    server (the session object) and the client (the session ID).
+                </p>
+                <p>
+                    Basic Flow:
+                <ol>
+                    <li>
+                        A user enters their log in credentials (typically username/password)
+                    </li>
+                    <li>The server verifies the credentials are correct and generates a session object that
+                        is then stored in the database
+                    </li>
+                    <li>
+                        The server sends the client a session ID—not the session object itself—which is
+                        stored as a cookie on the browser
+                    </li>
+                    <li>
+                        On all future requests the session ID is included as an HTTP header and, if verified
+                        by the database, the request proceeds
+                    </li>
+                    <li>
+                        Once a user logs out of an application, the session ID is destroyed by both the
+                        client and server
+                    </li>
+                    <li>
+                        If the user later logs in again, a new session ID is generated and stored as a cookie
+                        on the client
+                    </li>
+                </ol>
+                </p>
+                <p>
+                    The default setting in Django REST Framework is actually a combination of Basic
+                    Authentication and Session Authentication. Django's traditional session-based au-
+                    thentication system is used and the session ID is passed in the HTTP header on each
+                    request via Basic Authentication.
+                </p>
+
+                <p>
+                <h4>advantages: </h4>
+                <ul>
+                    <li>
+                        more secure since user credentials are
+                        only sent once, not on every request/response cycle as in Basic Authentication.
+                    </li>
+                    <li>
+                        It is
+                        also more efficient since the server does not have to verify the user’s credentials each
+                        time, it just matches the session ID to the session object which is a fast look up.
+                    </li>
+                </ul>
+                </p>
+
+                <p>
+                <h4>disadvantages: </h4>
+                <ul>
+                    <li>
+                        a session ID is only valid within the
+                        browser where log in was performed; it will not work across multiple domains
+                    </li>
+                    <li>
+                        the session object must be kept up-to-date which
+                        can be challenging in large sites with multiple servers
+                    </li>
+                    <li>
+                        the cookie is sent out for
+                        every single request, even those that don’t require authentication, which is inefficient.
+                    </li>
+                </ul>
+                </p>
+
+                <p>
+                <h4>conclusion:</h4>
+                <p>
+                    It is generally not advised to use a session-based authentication scheme
+                    for any API that will have multiple front-ends.
+                </p>
+                </p>
+            </div>
+
+            <!-- new topic -->
+
+            <div class="container">
+                <h2>3. Token Authentication</h2>
+                <p>
+                    Token-based authentication is <strong>stateless</strong>.once a client sends the initial user
+                    credentials to the server, a unique token is generated and then stored by the client as either
+                    a cookie or in local storage. This token is then passed in the header of each incoming
+                    HTTP request and the server uses it to verify that a user is authenticated. The server
+                    itself does not keep a record of the user, just whether a token is valid or not.
+                </p>
+                <br>
+                <h4>Cookies vs localStorage</h4>
+                <p>
+                    Cookies are used for reading server-side information. They are smaller (4KB) in
+                    size and automatically sent with each HTTP request. LocalStorage is designed for
+                    client-side information. It is much larger (5120KB) and its contents are not sent by
+                    default with each HTTP request. Tokens stored in both cookies and localStorage are
+                    vulnerable to XSS attacks. The current best practice is to store tokens in a cookie with
+                    the <span style="font-family: monospace;">httpOnly</span> and
+                    <span style="font-family: monospace;">Secure</span> cookie flags.
+                </p>
+                <p>
+                    <img src="token-authentication.png" alt="token-authentication">
+                </p>
+                <p>
+                <h4>advantages: </h4>
+                <ul>
+                    <li>
+                        Since tokens are stored on the client,
+                        scaling the servers to maintain up-to-date session objects is no longer an issue
+                    </li>
+                    <li>
+                        tokens can be shared amongst multiple front-ends: the same token can represent a
+                        user on the website and the same user on a mobile app
+                    </li>
+                </ul>
+                </p>
+
+                <p>
+                <h4>disadvantages: </h4>
+                <ul>
+                    <li>
+                        The same session ID can not be shared amongst different front-ends, a major limitation.
+                    </li>
+                    <li>
+                        tokens can grow quite large. Since the token
+                        is sent on every request, managing its size can become a performance issue.
+                    </li>
+                    <li>
+                        It also only generates one token per user, so a user on a website and then later a
+                        mobile app will use the same token. Since information about the user is stored locally,
+                        this can cause problems with maintaining and updating two sets of client information.
+                    </li>
+                </ul>
+                </p>
+
+                <p>
+                <h3>JSON Web Tokens (JWTs)</h3>
+                <p>
+                    a new, enhanced version of tokens that can be added to
+                    Django REST Framework via several third-party packages. JWTs have several benefits
+                    including the ability to generate unique client tokens and token expiration. They can
+                    either be generated on the server or with a third-party service like Auth0. And JWTs
+                    can be encrypted which makes them safer to send over unsecured HTTP connections.
+                </p>
+                <br>
+                <h4>conclusion:</h4>
+                <p>
+                    Ultimately the safest bet for most web APIs is to use a token-based authentication
+                    scheme. JWTs are a nice, modern addition though they require additional configura-
+                    tion. As a result, in this book we will use the built-in TokenAuthentication .
+                </p>
+            </div>
+
+            <!-- practical time -->
+            <div id="implementing-token-authentication">
+                <h2>Implementing the Token Authentication</h2>
+                <p>
+                    For implementing the authentication we need to tell the rest_framework to look at the
+                    settings specified in {project_root_dir}/settings.py file's variable called
+                    <strong>REST_FRAMEWORK</strong>.
+                    This is the same dictionary that we used to map the list of classes to be used.
+                </p>
+                <p>
+                    Now, we are going to add another key/value pair to tell the authentication we are about to use.
+                    Settings are just like json settings in vscode if you are familiar with it.
+                </p>
+                <code>
+<pre>
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ],
+}
+</pre>
+                </code>
+                <p>
+                    The tokens are generated on the server by app rest_framework.authtoken. Since, its an app
+                    we will include it in {project_root_dir}/settings.py. Any, change in installed apps corresponds To
+                    migrate command. So now, we will run migrations by: <code>python3 manage.py migrate</code>
+                </p>
+                <h2>creating end points</h2>
+                <p>
+                    We also need to create endpoints so users can log in and log out. We could create a
+                    dedicated users app for this purpose and then add our own urls, views, and serializers.
+                    However user authentication is an area where we really do not want to make a
+                    mistake. And since almost all APIs require this functionality, it makes sense that there
+                    are several excellent and tested third-party packages we can use it instead.
+                </p>
+                <p>
+                    Notably we will use django-rest-auth in combination with django-allauth to simplify
+                    things. Don't feel bad about using third-party packages. They exist for a reason and
+                    even the best Django professionals rely on them all the time. There is no point in
+                    reinventing the wheel if you don’t have to!
+                </p>
+                <code>
+<pre>
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    # 3rd-party apps
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth', # new
+    # Local
+    'posts.apps.PostsConfig',
+]
+</pre>
+                </code>
+            </div>
+        </div>
+        <hr>
+        <div id="viewsets-routers" class="container">
+            <h1>Viewsets and Routers</h1>
+            <p>
+
+            </p>
+        </div>
+    </section>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"zenMode.hideLineNumbers": false,
+        "zenMode.hideTabs": false,
+        "editor.fontSize": 18,
+        "editor.minimap.enabled": true,
+        "workbench.editor.showTabs": true,
+        "workbench.editor.languageDetection": true,
+        "terminal.integrated.fontSize": 18,
+        "terminal.integrated.fontFamily": "inconsolata",
+        "editor.glyphMargin": false,
+        "workbench.colorTheme": "Visual Studio Light",
+        "editor.fontLigatures": true,
+        "editor.defaultFormatter": "autopep8",
+        "[html]": {
+            "editor.defaultFormatter": "vscode.html-language-features"
+        },
+        "editor.fontFamily": "'Inconsolata'",
+        "editor.wordWrap": "wordWrapColumn",
+        // code snap settings
+        "codesnap.containerPadding": "3em",
+        "codesnap.backgroundColor": "cyan",
+        "codesnap.roundedCorners": true,
+        "codesnap.showWindowTitle": false,
+        "codesnap.target": "window",
+        "[python]": {
+            "editor.defaultFormatter": "ms-python.python"
+        },
+        "editor.wordWrapColumn": 90
+}}
