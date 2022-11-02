@@ -13,9 +13,10 @@ import {
 } from '@mui/material';
 import ApplicationContext from '../../main/context/ApplicationContext';
 
-const { baseUrl } = useContext(ApplicationContext).appData
+let baseUrl = null
 
 export default function Signup(props) {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   let navigate = useNavigate();
   const stateObject = useContext(ApplicationContext)
   let [formData, updateForm] = React.useState({

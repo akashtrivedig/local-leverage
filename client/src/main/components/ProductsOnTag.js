@@ -14,9 +14,9 @@ import { useParams } from 'react-router-dom';
 import ProductPreview from './ProductPreview';
 import ApplicationContext from '../context/ApplicationContext';
 
-const { baseUrl } = useContext(ApplicationContext).appData
-
+let baseUrl = null
 export default function Homepage() {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   const stateObject = useContext(ApplicationContext)
   let { tagId } = useParams();
   const products = stateObject.appData.products

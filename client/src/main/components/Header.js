@@ -31,8 +31,7 @@ export default function Header() {
     <header className='text-white body-font'>
       <nav className='navbar navbar-expand-lg navbar-light bg-black'>
         <div className='container-fluid'>
-          <NavLink className='navbar-brand text-white p-2' to='/homepage'>V2L</NavLink>
-          <NavLink className='navbar-brand text-white' to='/homepage'>Home</NavLink>
+          <NavLink className='navbar-brand text-white p-2' to='/homepage'>Local Leverage</NavLink>
           <div className='collapse navbar-collapse' id='navbarSupportedContent'>
             <form className='inline-flex container-fluid px-24' onSubmit={searchProduct}>
               <input className='form-control px-5' type='search' placeholder='Search' aria-label='Search' />

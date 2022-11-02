@@ -14,9 +14,10 @@ import ApplicationContext from '../../main/context/ApplicationContext';
 import { useContext } from 'react';
 import UserContext from '../../main/context/UserContext';
 
-const { baseUrl } = useContext(ApplicationContext).appData
+let baseUrl = null
 
 export default function NewProduct() {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   const applicationStateObject = useContext(ApplicationContext)
   const stateObject = useContext(UserContext)
   let stocks = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]

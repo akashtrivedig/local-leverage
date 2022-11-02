@@ -5,10 +5,10 @@
 		}
 	],
 	"settings": {
-		"workbench.colorTheme": "GitHub Dark Default",
+		"workbench.colorTheme": "Visual Studio Dark",
 		
 		"editor.minimap.autohide": true,
-		"editor.fontFamily": "Hack",
+		"editor.fontFamily": "Fira Code",
 		"editor.fontSize": 16,
 		"editor.tabSize": 2,
 		"editor.minimap.enabled": true,
@@ -20,12 +20,15 @@
 		"terminal.integrated.defaultProfile.windows": "Command Prompt",
 		"terminal.integrated.cursorStyle": "line",
 		"terminal.integrated.fontSize": 16,
-		"terminal.integrated.fontFamily": "Hack",
+		"terminal.integrated.fontFamily": "Fira Code",
 		"insertDateString.format": "DD-MM-YYYY",
 		"[css]": {
 			"editor.defaultFormatter": "vscode.css-language-features"
 		},
 		"editor.wordWrap": "wordWrapColumn",
 		"editor.wordWrapColumn": 120,
+		"[python]": {
+			"editor.defaultFormatter": "ms-python.python"
+		},
 	}
 }

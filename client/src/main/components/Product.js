@@ -13,9 +13,9 @@ import {
 } from '@mui/material'
 import ApplicationContext from '../context/ApplicationContext';
 
-const { baseUrl } = useContext(ApplicationContext).appData
-
+let baseUrl = null
 export default function Product() {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   let [product, setProduct] = React.useState({ product: null, feedbacks: [] });
   let { productId } = useParams();
   const stateObject = useContext(ApplicationContext)

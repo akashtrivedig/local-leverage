@@ -14,9 +14,10 @@ import { useContext } from 'react';
 import UserContext from '../../main/context/UserContext';
 import ApplicationContext from '../../main/context/ApplicationContext';
 
-const { baseUrl } = useContext(ApplicationContext).appData
+let baseUrl = null
 
 export default function NewShop() {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   const stateObject = useContext(UserContext)
   let [shopData, updateShop] = React.useState({
     name: '',

@@ -16,9 +16,10 @@ import {
 import { grey } from '@mui/material/colors'
 import ApplicationContext from '../../main/context/ApplicationContext'
 
-const { baseUrl } = useContext(ApplicationContext).appData
+let baseUrl = null
 
 export default function UpdateProfile(props) {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   const avatarSize = 250;
   const link = props.link
   const stateObject = useContext(UserContext)

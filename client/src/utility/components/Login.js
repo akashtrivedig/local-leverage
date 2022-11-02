@@ -14,14 +14,10 @@ import {
 import { useContext } from 'react'
 import ApplicationContext from '../../main/context/ApplicationContext'
 
-const { baseUrl } = useContext(ApplicationContext).appData
-
-/**
- * generalized login page, can be used for both publisher and customer
- */
-
+let baseUrl = null
 
 export default function Login(props) {
+  baseUrl = useContext(ApplicationContext).appData.baseUrl
   console.log('login component rendered');
   const navigate = useNavigate()
   const stateObject = useContext(ApplicationContext)

@@ -39,17 +39,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_METHODS = [
-    'GET',
-    'POST',
-    'DELETE',
-    'PUT'
-]
+CORS_ALLOWED_METHODS = ['GET', 'POST', 'DELETE', 'PUT']
 
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
-]
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost:3000", ]
 
 ROOT_URLCONF = 'api.urls'
 
@@ -158,5 +150,3 @@ SIMPLE_JWT = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/photos/'
-
-
