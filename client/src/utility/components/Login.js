@@ -8,9 +8,7 @@
 
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import {
-  Grid, Button, TextField, Box, FormControlLabel, Checkbox
-} from '@mui/material';
+import { Grid, Button, TextField, Box, FormControlLabel, Checkbox } from '@mui/material';
 import { useContext } from 'react'
 import ApplicationContext from '../../main/context/ApplicationContext'
 
@@ -34,7 +32,7 @@ export default function Login(props) {
   }
 
   function showContent(event) {
-    let inputPassword = document.getElementById("password");
+    let inputPassword = document.getElementById('password');
     inputPassword.type.localeCompare('password') === 0 ? inputPassword.type = 'text' : inputPassword.type = 'password'
   }
 
@@ -94,50 +92,51 @@ export default function Login(props) {
     }
   }
 
-
-
-
   return (
-    <Box sx={{ p: 4, display: 'flex', justifyContent: 'center' }}>
-      <form onSubmit={userLogin} className="w-1/2">
-        <Grid container direction="row" justifyContent="center" alignItems="center" spacing={2}>
+    <Box className='flex justify-center'>
+      <form onSubmit={userLogin} className='w-1/2'>
+        <Grid container direction='row' justifyContent='center' alignItems='center' spacing={2}>
 
           <Grid item xs={7}>
-            <Box sx={{ py: 2, display: 'flex', justifyContent: 'center' }}>
-              <h1 className='capitalize text-2xl font-semibold'>{props.variables.heading} Login</h1>
+            <Box className='py-2 flex justify-center'>
+              <h1 className='capitalize text-2xl font-medium'>{props.variables.heading} Login</h1>
             </Box>
           </Grid>
 
-          <Grid item xs={7}>
-            <TextField label='contact' onChange={handleChange} type='text' value={formData.contact} name='username' fullWidth autoComplete='false' />
+          <Grid item xs={7} className='p-0'>
+            <TextField label='contact' onChange={handleChange} type='text' value={formData.contact} name='username' fullWidth autoComplete='false' className='' />
           </Grid>
 
-          <Grid item xs={7}>
+          <Grid item xs={7} className='p-0'>
             <TextField label='password' onChange={handleChange} type='password' value={formData.password} name='password' fullWidth id='password' autoComplete='false' />
           </Grid>
 
-          <Grid item xs={7}>
-            <FormControlLabel id="showPassword" control={<Checkbox />} onChange={showContent} label="show password" />
+          <Grid item xs={7} className='p-0'>
+            <FormControlLabel id='showPassword' control={<Checkbox />} onChange={showContent} label='show password' />
           </Grid>
 
-          <Grid item xs={7}>
+          <Grid item xs={7} className='p-0'>
             <Box display='flex' justifyContent='center'>
-              <Button variant='contained' type='submit'>Login</Button>
+              <Button variant='contained' type='submit' className='px-4'>Login</Button>
             </Box>
           </Grid>
 
-          <Grid item xs={7}>
-            <Box sx={{ py: 2, display: 'flex', justifyContent: 'center' }}>
-              Don't have an account?
-              {
-                props.variables.userType === 0 ? <NavLink to='/customer-signup'> Signup! </NavLink> : <NavLink to='/publisher-signup'> Signup! </NavLink>
-              }
+          <Grid item xs={7} className='p-0'>
+            <Box className='text-sm py-2'>
+              don't have an account?
+              <span className='mx-1 lowercase text-cyan-800'>
+                {
+                  props.variables.userType === 0 ?
+                    <NavLink to='/customer-signup'> Signup! </NavLink> :
+                    <NavLink to='/publisher-signup'> Signup! </NavLink>
+                }
+              </span>
             </Box>
           </Grid>
 
-        </Grid >
-      </form >
-    </Box >
+        </Grid>
+      </form>
+    </Box>
   );
 }
 

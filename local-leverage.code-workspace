@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"workbench.colorTheme": "Visual Studio Dark",
+		"workbench.colorTheme": "GitHub Dark Default",
 		
 		"editor.minimap.autohide": true,
 		"editor.fontFamily": "Fira Code",
